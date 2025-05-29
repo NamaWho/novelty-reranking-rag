@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+rq1/
+rq2/
+rq3/
+zenodo/*
