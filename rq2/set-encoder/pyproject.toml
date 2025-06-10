@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "set_encoder"
+version = "0.1.0"
+description = "Set Encoder utilities"
+authors = [{ name="Your Name", email="you@example.com" }]
+dependencies = []
+
+[tool.setuptools]
+packages = ["set_encoder"]
