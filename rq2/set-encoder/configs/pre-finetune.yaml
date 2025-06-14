@@ -20,7 +20,6 @@ model:
   class_path: set_encoder.module.SetEncoderModule
   init_args:
     model_name_or_path: google/electra-base-discriminator
-    # model_name_or_path: google/electra-large-discriminator
     config:
       class_path: SetEncoderConfig
       init_args:

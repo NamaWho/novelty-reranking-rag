@@ -1,8 +1,5 @@
 seed_everything: 42
 trainer:
-  accelerator: gpu
-  devices: 3
-  strategy: ddp
   precision: bf16-mixed 
   max_epochs: 3
   callbacks:
@@ -11,7 +8,7 @@ data:
   class_path: LightningIRDataModule
   init_args:
     num_workers: 4
-    train_batch_size: 32
+    train_batch_size: 1
     train_dataset:
       class_path: set_encoder.data.SubtopicRunDataset
       init_args:
