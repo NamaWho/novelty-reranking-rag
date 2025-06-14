@@ -33,16 +33,15 @@ def register_rank_distillm_novelty():
         "msmarco-passage/trec-dl-2019/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "msmarco-passage-trec-dl-2019-judged.qrels",
+        qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty" / "msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
         "msmarco-passage/trec-dl-2020/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "msmarco-passage-trec-dl-2020-judged.qrels",
+        qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty" / "msmarco-passage-trec-dl-2020-judged.qrels",
     )
-
 
 class RegisterRankDistiLLMNovelty(Callback):
     def __init__(self) -> None:
@@ -50,7 +49,7 @@ class RegisterRankDistiLLMNovelty(Callback):
         register_rank_distillm_novelty()
 
 def register_rank_distillm_novelty_embedding_aware():
-    run_path = Path(__file__).parent.parent / "data" / "runs" / "run_st_thr_85_full.run"
+    run_path = Path(__file__).parent.parent / "data" / "train" / "ea__colbert-10000-sampled-100__msmarco-passage-train-judged.run"
 
     dlc_contents = {
         "cache_path": str(run_path),
@@ -70,14 +69,14 @@ def register_rank_distillm_novelty_embedding_aware():
         "msmarco-passage/trec-dl-2019/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "msmarco-passage-trec-dl-2019-judged.qrels",
+        qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty-ea" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
         "msmarco-passage/trec-dl-2020/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "msmarco-passage-trec-dl-2020-judged.qrels",
+        qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty-ea" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",
     )
 
 class RegisterRankDistiLLMNoveltyEmbeddingAware(Callback):
