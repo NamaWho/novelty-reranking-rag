@@ -2,6 +2,8 @@ seed_everything: 42
 trainer:
   precision: bf16-mixed
   max_steps: 20000
+  logger: true
+  enable_checkpointing: true
 data:
   class_path: LightningIRDataModule
   init_args:

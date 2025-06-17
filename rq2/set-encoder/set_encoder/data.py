@@ -66,14 +66,14 @@ def register_rank_distillm_novelty_embedding_aware():
     )
 
     register_new_dataset(
-        "msmarco-passage/trec-dl-2019/judged/novelty",
+        "msmarco-passage/trec-dl-2019/judged/novelty-ea",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
         qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty-ea" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
-        "msmarco-passage/trec-dl-2020/judged/novelty",
+        "msmarco-passage/trec-dl-2020/judged/novelty-ea",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
         qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty-ea" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",

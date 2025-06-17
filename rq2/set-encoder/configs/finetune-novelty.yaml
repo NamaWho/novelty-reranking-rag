@@ -8,7 +8,7 @@ data:
   class_path: LightningIRDataModule
   init_args:
     num_workers: 4
-    train_batch_size: 1
+    train_batch_size: 2
     train_dataset:
       class_path: set_encoder.data.SubtopicRunDataset
       init_args:
@@ -20,7 +20,7 @@ data:
 model:
   class_path: set_encoder.module.SetEncoderModule
   init_args:
-    model_name_or_path: lightning_logs/version_3/huggingface_checkpoint/
+    model_name_or_path: lightning_logs/version_0/huggingface_checkpoint/
     # model_name_or_path: google/electra-base-discriminator
     # model_name_or_path: google/electra-large-discriminator
     config:
