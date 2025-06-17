@@ -11,7 +11,7 @@ def reassign_clusters(embeddings: np.ndarray, threshold: float) -> np.ndarray:
     clustering = AgglomerativeClustering(
         n_clusters=None,
         metric='cosine',
-        linkage='average',
+        linkage='complete',
         distance_threshold=distance_threshold
     )
     labels = clustering.fit_predict(embeddings)
