@@ -176,3 +176,4 @@ cython_debug/
 rq1/out/
 rq2/set-encoder/lightning_logs/
 rq2/set-encoder/data/
+.key
