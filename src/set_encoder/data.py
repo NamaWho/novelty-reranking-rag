@@ -9,6 +9,41 @@ from lightning import Callback
 from lightning_ir.data.dataset import RankSample, RunDataset
 from lightning_ir.data.external_datasets import register_new_dataset
 
+def register_rank_distillm_novelty_embedding_aware():
+    run_path = "data" / "raw" / "finetuning" / "ea__colbert-10000-sampled-100__msmarco-passage-train-judged.run"
+
+    dlc_contents = {
+        "cache_path": str(run_path),
+        "extractors": [],
+        "instructions": f"File locale già disponibile in: {run_path}"
+    }
+
+    register_new_dataset(
+        "msmarco-passage/train/rank-distillm-novelty-embedding-aware",
+        docs="msmarco-passage",
+        queries="msmarco-passage/train",
+        qrels="msmarco-passage/train",
+        scoreddocs=dlc_contents,
+    )
+
+    register_new_dataset(
+        "msmarco-passage/trec-dl-2019/judged/novelty-ea",
+        docs="msmarco-passage",
+        queries="msmarco-passage/trec-dl-2019/judged",
+        qrels= "data" / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
+    )
+
+    register_new_dataset(
+        "msmarco-passage/trec-dl-2020/judged/novelty-ea",
+        docs="msmarco-passage",
+        queries="msmarco-passage/trec-dl-2020/judged",
+        qrels= "data" / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",
+    )
+
+class RegisterRankDistiLLMNoveltyEmbeddingAware(Callback):
+    def __init__(self) -> None:
+        super().__init__()
+        register_rank_distillm_novelty_embedding_aware()
 
 def register_rank_distillm_novelty():
     dlc_contents = {
@@ -33,22 +68,36 @@ def register_rank_distillm_novelty():
         "msmarco-passage/trec-dl-2019/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "msmarco-passage-trec-dl-2019-judged.qrels",
+        qrels= "data" / "raw" / "finetuning" / "msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
         "msmarco-passage/trec-dl-2020/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "msmarco-passage-trec-dl-2020-judged.qrels",
+        qrels= "data" / "raw" / "finetuning" / "msmarco-passage-trec-dl-2020-judged.qrels",
     )
-
 
 class RegisterRankDistiLLMNovelty(Callback):
     def __init__(self) -> None:
         super().__init__()
         register_rank_distillm_novelty()
 
+def register_mmlu():
+    print(">>> Registering MMLU dataset")
+
+    register_new_dataset(
+        "msmarco-segment/mmlu",
+        docs="msmarco-segment-v2.1",
+        queries="./data/datasets/mmlu/mmlu-queries.tsv",
+        qrels= "data" / "raw" / "rag" / "dummy.qrels",
+    )
+    print(">>> MMLU dataset registered")
+
+class RegisterMmlu(Callback):
+    def __init__(self) -> None:
+        super().__init__()
+        register_mmlu()
 
 class SubtopicRunDataset(RunDataset):
 
@@ -87,7 +136,6 @@ class SubtopicRunDataset(RunDataset):
 
         targets = torch.tensor(group["iteration"].values)
         return RankSample(query_id, query, doc_ids, docs, targets)
-
 
 class RepeatRunDataset(RunDataset):
 

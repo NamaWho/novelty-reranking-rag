@@ -3,7 +3,7 @@ trainer:
   logger: false
   enable_checkpointing: false
   callbacks:
-  - class_path: set_encoder.data.RegisterRankDistiLLMNoveltyEmbeddingAware
+  - class_path: src.set_encoder.data.RegisterRankDistiLLMNoveltyEmbeddingAware
 data:
   class_path: LightningIRDataModule
   init_args:
@@ -12,22 +12,22 @@ data:
     inference_datasets:
       - class_path: RunDataset
         init_args:
-          run_path_or_id: ./data/runs/novelty-ea/__colbert__msmarco-passage-trec-dl-2019-judged-novelty-ea.run
+          run_path_or_id: ./data/raw/finetuning/__colbert__msmarco-passage-trec-dl-2019-judged-novelty-ea.run
           depth: 100
           sampling_strategy: top
       - class_path: RunDataset
         init_args:
-          run_path_or_id: ./data/runs/novelty-ea/__colbert__msmarco-passage-trec-dl-2020-judged-novelty-ea.run
+          run_path_or_id: ./data/raw/finetuning/__colbert__msmarco-passage-trec-dl-2020-judged-novelty-ea.run
           depth: 100
           sampling_strategy: top
       - class_path: RunDataset
         init_args:
-          run_path_or_id: ./data/runs/novelty-ea/__bm25__msmarco-passage-trec-dl-2019-judged-novelty-ea.run
+          run_path_or_id: ./data/raw/finetuning/__bm25__msmarco-passage-trec-dl-2019-judged-novelty-ea.run
           depth: 100
           sampling_strategy: top
       - class_path: RunDataset
         init_args:
-          run_path_or_id: ./data/runs/novelty-ea/__bm25__msmarco-passage-trec-dl-2020-judged-novelty-ea.run
+          run_path_or_id: ./data/raw/finetuning/__bm25__msmarco-passage-trec-dl-2020-judged-novelty-ea.run
           depth: 100
           sampling_strategy: top
 model:

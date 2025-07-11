@@ -1,0 +1,27 @@
+trainer:
+  precision: bf16-mixed
+  logger: false
+  enable_checkpointing: false
+  callbacks:
+    - class_path: src.set_encoder.data.RegisterMmlu
+    - class_path: lightning_ir.ReRankCallback
+      init_args:
+        save_dir: "./data/processed/rag/mmlu"
+        run_name: "__setencoder-novelty-ea__msmarco-segment-mmlu.tsv"
+data:
+  class_path: LightningIRDataModule
+  init_args:
+    num_workers: 1
+    inference_batch_size: 4
+    inference_datasets:
+      - class_path: RunDataset
+        init_args:
+          run_path_or_id: ./data/raw/rag/__bm25__msmarco-segment-mmlu.run
+          depth: 100
+          sampling_strategy: top
+model:
+  class_path: CrossEncoderModule
+  init_args:
+    model_name_or_path: null
+    evaluation_metrics:
+    - alpha_nDCG(alpha=0.99)@10

@@ -180,3 +180,4 @@ rq3/
 data/processed/
 models/set-encoder-novelty/
 models/set-encoder-novelty-ea/
+lightning_logs/

@@ -9,7 +9,7 @@ from lightning_ir.data.dataset import RankSample, RunDataset
 from lightning_ir.data.external_datasets import register_new_dataset
 
 def register_rank_distillm_novelty_embedding_aware():
-    run_path = "data" / "train" / "ea__colbert-10000-sampled-100__msmarco-passage-train-judged.run"
+    run_path = "data" / "raw" / "finetuning" / "ea__colbert-10000-sampled-100__msmarco-passage-train-judged.run"
 
     dlc_contents = {
         "cache_path": str(run_path),
@@ -29,14 +29,14 @@ def register_rank_distillm_novelty_embedding_aware():
         "msmarco-passage/trec-dl-2019/judged/novelty-ea",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty-ea" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
+        qrels= "data" / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
         "msmarco-passage/trec-dl-2020/judged/novelty-ea",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
-        qrels=Path(__file__).parent.parent / "data" / "qrels" / "novelty-ea" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",
+        qrels= "data" / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",
     )
 
 class RegisterRankDistiLLMNoveltyEmbeddingAware(Callback):

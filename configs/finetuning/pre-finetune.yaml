@@ -10,7 +10,7 @@ data:
     num_workers: 4
     train_batch_size: 32
     train_dataset:
-      class_path: set_encoder.data.RepeatRunDataset
+      class_path: src.set_encoder.data.RepeatRunDataset
       init_args:
         run_path_or_id: msmarco-passage/train/rank-distillm-colbert
         targets: relevance
@@ -19,7 +19,7 @@ data:
         sampling_strategy: single_relevant
         add_docs_not_in_ranking: true
 model:
-  class_path: set_encoder.module.SetEncoderModule
+  class_path: src.set_encoder.module.SetEncoderModule
   init_args:
     model_name_or_path: google/electra-base-discriminator
     config:
@@ -32,7 +32,7 @@ model:
         sample_missing_docs: true
     loss_functions:
       - class_path: InfoNCE
-      - class_path: set_encoder.loss.RepeatCrossEntropyLoss
+      - class_path: src.set_encoder.loss.RepeatCrossEntropyLoss
 optimizer:
   class_path: torch.optim.AdamW
   init_args:
