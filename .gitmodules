@@ -1,0 +1,3 @@
+[submodule "src/set-encoder"]
+	path = src/set-encoder
+	url = https://github.com/webis-de/set-encoder.git
