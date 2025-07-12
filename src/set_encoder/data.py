@@ -89,7 +89,7 @@ def register_mmlu():
     register_new_dataset(
         "msmarco-segment/mmlu",
         docs="msmarco-segment-v2.1",
-        queries="./data/datasets/mmlu/mmlu-queries.tsv",
+        queries="./data/raw/rag/mmlu-queries.tsv",
         qrels= Path("data") / "raw" / "rag" / "dummy.qrels",
     )
     print(">>> MMLU dataset registered")
