@@ -10,7 +10,7 @@ from lightning_ir.data.dataset import RankSample, RunDataset
 from lightning_ir.data.external_datasets import register_new_dataset
 
 def register_rank_distillm_novelty_embedding_aware():
-    run_path = "data" / "raw" / "finetuning" / "ea__colbert-10000-sampled-100__msmarco-passage-train-judged.run"
+    run_path = Path(__file__).parent.parent.parent / "data" / "raw" / "finetuning" / "ea__colbert-10000-sampled-100__msmarco-passage-train-judged.run"
 
     dlc_contents = {
         "cache_path": str(run_path),
@@ -30,14 +30,14 @@ def register_rank_distillm_novelty_embedding_aware():
         "msmarco-passage/trec-dl-2019/judged/novelty-ea",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
-        qrels= "data" / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
+        qrels= Path("data") / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
         "msmarco-passage/trec-dl-2020/judged/novelty-ea",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
-        qrels= "data" / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",
+        qrels= Path("data") / "raw" / "finetuning" / "ea-msmarco-passage-trec-dl-2020-judged.qrels",
     )
 
 class RegisterRankDistiLLMNoveltyEmbeddingAware(Callback):
@@ -68,14 +68,14 @@ def register_rank_distillm_novelty():
         "msmarco-passage/trec-dl-2019/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2019/judged",
-        qrels= "data" / "raw" / "finetuning" / "msmarco-passage-trec-dl-2019-judged.qrels",
+        qrels= Path("data") / "raw" / "finetuning" / "msmarco-passage-trec-dl-2019-judged.qrels",
     )
 
     register_new_dataset(
         "msmarco-passage/trec-dl-2020/judged/novelty",
         docs="msmarco-passage",
         queries="msmarco-passage/trec-dl-2020/judged",
-        qrels= "data" / "raw" / "finetuning" / "msmarco-passage-trec-dl-2020-judged.qrels",
+        qrels= Path("data") / "raw" / "finetuning" / "msmarco-passage-trec-dl-2020-judged.qrels",
     )
 
 class RegisterRankDistiLLMNovelty(Callback):
@@ -90,7 +90,7 @@ def register_mmlu():
         "msmarco-segment/mmlu",
         docs="msmarco-segment-v2.1",
         queries="./data/datasets/mmlu/mmlu-queries.tsv",
-        qrels= "data" / "raw" / "rag" / "dummy.qrels",
+        qrels= Path("data") / "raw" / "rag" / "dummy.qrels",
     )
     print(">>> MMLU dataset registered")
 

@@ -3,7 +3,7 @@ trainer:
   logger: false
   enable_checkpointing: false
   callbacks:
-  - class_path: set_encoder.data.RegisterRankDistiLLMNovelty
+  - class_path: src.set_encoder.data.RegisterRankDistiLLMNovelty
 data:
   class_path: LightningIRDataModule
   init_args:

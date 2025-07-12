@@ -71,5 +71,5 @@ lightning-ir fit --config ./configs/finetune-novelty.yaml
 
 ### Reranking
 ```bash
-lightning-ir re_rank --config ./configs/re-rank.yaml --model.model_name_or_path ./models/set-encoder-novelty/
+lightning-ir re_rank --config ./configs/finetuning/re-rank.yaml --model.model_name_or_path ./models/set-encoder-novelty/
 ```
