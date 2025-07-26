@@ -17,7 +17,7 @@ data:
       - class_path: RunDataset
         init_args:
           run_path_or_id: ./data/raw/rag/__bm25__msmarco-segment-mmlu.run
-          depth: 100
+          depth: 20
           sampling_strategy: top
 model:
   class_path: CrossEncoderModule
