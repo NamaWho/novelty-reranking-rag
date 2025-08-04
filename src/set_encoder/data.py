@@ -99,6 +99,22 @@ class RegisterMmlu(Callback):
         super().__init__()
         register_mmlu()
 
+def register_gpqa():
+    print(">>> Registering GPQA dataset")
+
+    register_new_dataset(
+        "msmarco-segment/gpqa", 
+        docs="msmarco-segment-v2.1", 
+        queries="./data/raw/rag/gpqa-queries.tsv", 
+        qrels=Path("data") / "raw" / "rag" / "dummy-gpqa.qrels",
+    )
+    print(">>> MMLU dataset registered")
+
+class RegisterGpqa(Callback):
+    def __init__(self) -> None:
+        super().__init__()
+        register_gpqa()
+
 class SubtopicRunDataset(RunDataset):
 
     def __init__(
