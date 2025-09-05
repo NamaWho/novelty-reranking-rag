@@ -115,6 +115,23 @@ class RegisterGpqa(Callback):
         super().__init__()
         register_gpqa()
 
+def register_trecrag24():
+    print(">>> Registering TREC RAG Track 24 dataset")
+
+    register_new_dataset(
+        "msmarco-segment/trecrag24", 
+        docs="msmarco-segment-v2.1", 
+        queries="./data/raw/rag/trecrag24-queries.tsv", 
+        qrels=Path("data") / "raw" / "rag" / "dummy-trecrag24.qrels",
+    )
+    print(">>> TREC RAG Track 24 dataset registered")
+
+class RegisterTRECRAG24(Callback):
+    def __init__(self) -> None:
+        super().__init__()
+        register_trecrag24()
+
+
 class SubtopicRunDataset(RunDataset):
 
     def __init__(

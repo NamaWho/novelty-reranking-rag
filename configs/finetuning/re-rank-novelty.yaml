@@ -3,7 +3,11 @@ trainer:
   logger: false
   enable_checkpointing: false
   callbacks:
-  - class_path: src.set_encoder.data.RegisterRankDistiLLMNovelty
+    - class_path: src.set_encoder.data.RegisterRankDistiLLMNovelty
+    - class_path: lightning_ir.ReRankCallback
+      init_args:
+        save_dir: "./data/processed/finetuning/"
+        run_name: "__setencoder-novelty-hfzeroshot__msmarco-segment-bm25_trecdl_lex.tsv"
 data:
   class_path: LightningIRDataModule
   init_args:

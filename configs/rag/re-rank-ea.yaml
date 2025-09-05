@@ -3,11 +3,11 @@ trainer:
   logger: false
   enable_checkpointing: false
   callbacks:
-    - class_path: src.set_encoder.data.RegisterGpqa
+    - class_path: src.set_encoder.data.RegisterTRECRAG24
     - class_path: lightning_ir.ReRankCallback
       init_args:
         save_dir: "./data/processed/rag/"
-        run_name: "__setencoder-novelty-ea__msmarco-segment-gpqa.tsv"
+        run_name: "__setencoder-novelty-ea__msmarco-segment-trecrag24.tsv"
 data:
   class_path: LightningIRDataModule
   init_args:
@@ -16,7 +16,7 @@ data:
     inference_datasets:
       - class_path: RunDataset
         init_args:
-          run_path_or_id: ./data/raw/rag/__bm25__msmarco-segment-gpqa.run
+          run_path_or_id: ./data/raw/rag/msmarco-segment-trecrag24.run
           depth: 20
           sampling_strategy: top
 model:
