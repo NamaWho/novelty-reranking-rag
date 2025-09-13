@@ -66,12 +66,14 @@ The experimental pipeline is structured in **three stages**:
 ## 📜 Citation
 
 If you use this code, please cite:
+```tex
 @mastersthesis{namaki2025novelty,
 title={Beyond Redundancy: Embedding-Aware Novelty Reranking in Retrieval-Augmented Generation},
 author={Namaki Ghaneh, Daniel},
 school={University of Pisa},
 year={2025}
 }
+```
 
 ---
 
