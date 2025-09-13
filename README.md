@@ -1,75 +1,80 @@
-# emalir-dr-rag
-Embedding-Aware Listwise Reranking for Diversified Retrieval in RAG.
-This is a research-oriented codebase for exploring advanced retrieval pipelines in a document reranking context. It is structured around three key research questions (RQ1–RQ3) and includes tools for clustering, reranking, model training, and evaluation. The project is built in Python with modularity and reproducibility in mind.
+# Beyond Redundancy: Embedding-Aware Novelty Reranking in Retrieval-Augmented Generation
+
+This repository contains the research codebase accompanying the Master’s thesis **“Beyond Redundancy: Embedding-Aware Novelty Reranking in Retrieval-Augmented Generation”** at the University of Pisa, Department of Information Engineering.
+The project investigates **novelty-aware reranking** as a way to enrich Retrieval-Augmented Generation (RAG) pipelines with **diverse and non-redundant evidence**. The work focuses on how **embedding-based supervision** can improve nugget coverage compared to traditional lexical heuristics.
 
 ---
 
-## 🧠 Research Questions
+## 🧠 Research Focus
 
-### RQ1 – Reclustering Qrels and Runs
-Evaluate the impact of reclustering relevant documents in existing `.qrels` and `.run` files using embedding-aware similarity measures.
+Large Language Models (LLMs) often suffer from **redundant retrieval**, where multiple passages repeat the same fact in different forms. This redundancy wastes the limited context window and reduces the factual diversity of generated answers.
 
-### RQ2 – Training and Fine-Tuning Set-Encoder
-Train and analyze listwise rerankers based on the [set-encoder](https://github.com/naver-ai/set-encoder) architecture with support for pretraining, fine-tuning, and multi-run analysis.
+This research addresses the problem through **three research questions (RQ1–RQ3):**
 
-### RQ3 – Robustness and Analysis (MMLU)
-Apply RAG pipelines to non-standard benchmarks like MMLU, examining the effectiveness of different reranking strategies under domain shift or corruption.
+- **RQ1 — Semantic Novelty Detection**  
+  Does clustering over dense embeddings produce more coherent novelty groups than lexical (Jaccard) baselines?
 
----
+- **RQ2 — Embedding-Aware Supervision**  
+  Does fine-tuning the **Set-Encoder** reranker with semantic novelty labels improve diversity-sensitive metrics compared to lexical supervision?
 
-## 📁 Project Structure
-
-```text
-.
-├── configs/            # YAML configuration files for each RQ
-├── data/               # Raw and processed qrels, runs, embeddings, etc.
-├── models/             # Checkpoints of trained models (e.g., set-encoder)
-├── notebooks/          # Jupyter notebooks for analysis and visualization
-├── scripts/            # CLI entrypoints for running RQ pipelines
-├── rq1/, rq2/, rq3/    # Legacy and experiment-specific code
-├── src/                # Main Python packages (editable, structured by domain)
-│   ├── reclustering/   # RQ1 logic: pipeline, clustering, data loading
-│   ├── finetuning/     # RQ2 logic: dataset builders, loaders
-│   └── set_encoder/    # Git submodule with official set-encoder code
-├── pyproject.toml      # Build configuration (PEP 517)
-└── README.md
-```
+- **RQ3 — Downstream RAG Evaluation**  
+  Does integrating novelty-aware reranking into RAG pipelines improve factual coverage and answer quality on benchmarks such as **MMLU, GPQA, and the TREC RAG Track 2024**?
 
 ---
 
-## ⚙️ Setup & Installation
+## 🔬 Methodology
 
-### 1. Clone the repository and initialize submodules
+The experimental pipeline is structured in **three stages**:
 
-```bash
-git clone https://github.com/NamaWho/emalir-dr-rag.git
-cd emalir-dr-rag
-git submodule update --init --recursive
-```
+1. **Semantic Clustering (RQ1)**  
+   - Encode top-k passages into dense embeddings  
+   - Apply agglomerative clustering with cosine similarity  
+   - Derive novelty labels that consolidate paraphrases into coherent groups  
 
-### 2. Install the project in editable mode
+2. **Fine-Tuning the Set-Encoder (RQ2)**  
+   - **Stage 1:** Duplicate-Aware InfoNCE (contrastive pretraining)  
+   - **Stage 2:** Novelty-Aware RankNet (listwise reranking with novelty penalties)  
+   - Compare lexical vs. semantic novelty supervision  
 
-```bash
-pip install -e .
-```
+3. **Integration into RAG Pipelines (RQ3)**  
+   - First-stage retrieval (BM25 / official TREC pools)  
+   - Reranking with Set-Encoder (lexical vs. semantic supervision)  
+   - Generation with **LLaMA-3.1-70B-Instruct**  
+   - Evaluation with **MMLU, GPQA, and nugget-based metrics**  
 
 ---
 
-## 🚀 Example Usages
+## 📊 Datasets & Benchmarks
 
-### Reclustering Qrels and Runs
-```bash
-python scripts/rq1_convert_{run,qrels}.py \
-    --run-path data/raw/reclustering/__colbert-10000-sampled-100__msmarco-passage-train-judged.run  \
-    --encoder all-MiniLM-L6-v2 \
-    --threshold 0.85
-```
-### Finetuning set-encoder
-```bash
-lightning-ir fit --config ./configs/finetune-novelty.yaml
-```
+- **MS MARCO v2** → training  
+- **MS MARCO v2.1 segmented** → robustness testing  
+- **TREC Deep Learning 2019/2020** → high-quality graded relevance  
+- **GPQA** → multi-hop reasoning  
+- **MMLU** → multi-domain multiple-choice  
+- **TREC RAG Track 2024** → nugget-based evaluation (AutoNuggetizer)
 
-### Reranking
-```bash
-lightning-ir re_rank --config ./configs/finetuning/re-rank.yaml --model.model_name_or_path ./models/set-encoder-novelty/
-```
+---
+
+## 📈 Key Findings
+
+- **RQ1** → Semantic clustering (e.g., MiniLM, E5, BGE-M3) yields **fewer, more coherent novelty groups** than lexical Jaccard clustering, consolidating paraphrases effectively.  
+- **RQ2** → Embedding-aware fine-tuning is **comparable to lexical supervision** on α-nDCG; lexical labels remain strong baselines due to stability and granularity.  
+- **RQ3** → In RAG pipelines, novelty-aware reranking produces **directionally higher nugget coverage** (especially on importance-weighted metrics) but no statistically significant gains on accuracy-based tasks (MMLU, GPQA).  
+
+---
+
+## 📜 Citation
+
+If you use this code, please cite:
+@mastersthesis{namaki2025novelty,
+title={Beyond Redundancy: Embedding-Aware Novelty Reranking in Retrieval-Augmented Generation},
+author={Namaki Ghaneh, Daniel},
+school={University of Pisa},
+year={2025}
+}
+
+---
+
+## 📜 License
+
+Released under the MIT License.
